@@ -81,6 +81,8 @@ w3 = Web3(Web3.HTTPProvider('HTTP://127.0.0.1:7545'))
 #  and send_transaction
 # YOUR CODE HERE
 
+from crypto_wallet import generate_account, get_balance, send_transction
+
 ################################################################################
 # Fintech Finder Candidate Information
 
@@ -132,7 +134,10 @@ st.sidebar.markdown("## Client Account Address and Ethernet Balance in Ether")
 #  Call the `generate_account` function and save it as the variable `account`
 # YOUR CODE HERE
 
+account = generate_account()
+
 ##########################################
+
 
 # Write the client's Ethereum account address to the sidebar
 st.sidebar.write(account.address)
@@ -147,6 +152,10 @@ st.sidebar.write(account.address)
 # Call `get_balance` function and pass it your account address
 # Write the returned ether balance to the sidebar
 # YOUR CODE HERE
+
+st.sidebar.write("## Acount balance = ")
+st.sidebar.write(get_balance(w3, account.address))
+
 
 ##########################################
 
@@ -243,6 +252,9 @@ st.sidebar.markdown("## Total Wage in Ether")
 # Write the `wage` calculation to the Streamlit sidebar
 # YOUR CODE HERE
 
+wage = hourly_rate * hours
+st.sidebar.write("Hourly wage = ",wage)
+
 ##########################################
 # Step 2 - Part 2:
 # * Call the `send_transaction` function and pass it three parameters:
@@ -269,6 +281,10 @@ if st.sidebar.button("Send Transaction"):
     # Your `account`, the `candidate_address`, and the `wage` as parameters
     # Save the returned transaction hash as a variable named `transaction_hash`
     # YOUR CODE HERE
+    
+    transaction_hash = send_transaction(w3, account, candidate_address, wage)
+    
+    
 
     # Markdown for the transaction hash
     st.sidebar.markdown("#### Validated Transaction Hash")
